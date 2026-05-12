@@ -40,6 +40,32 @@ export const useRowContextMenu = (
     ipcRenderer.send("removeLineFromFile", lineNumber);
   };
 
+  const handleSetPriority = (
+    lineNumber: number,
+    todoString: string,
+    priority: string,
+  ) => {
+    ipcRenderer.send(
+      "updateTodoObject",
+      lineNumber,
+      todoString,
+      "priority",
+      priority,
+      true,
+    );
+  };
+
+  const handleRemovePriority = (lineNumber: number, todoString: string) => {
+    ipcRenderer.send(
+      "updateTodoObject",
+      lineNumber,
+      todoString,
+      "priority",
+      "-",
+      true,
+    );
+  };
+
   const handleRowContextMenu = (
     event: React.MouseEvent,
     todoString: string,
@@ -61,6 +87,26 @@ export const useRowContextMenu = (
         id: "copy",
         label: t("copy"),
         function: () => handleSaveToClipboard(todoString),
+      },
+      {
+        id: "priority-a",
+        label: `${t("shared.attributeMapping.priority")} A`,
+        function: () => handleSetPriority(lineNumber, todoString, "A"),
+      },
+      {
+        id: "priority-b",
+        label: `${t("shared.attributeMapping.priority")} B`,
+        function: () => handleSetPriority(lineNumber, todoString, "B"),
+      },
+      {
+        id: "priority-c",
+        label: `${t("shared.attributeMapping.priority")} C`,
+        function: () => handleSetPriority(lineNumber, todoString, "C"),
+      },
+      {
+        id: "remove-priority",
+        label: t("contextMenu.removePriority"),
+        function: () => handleRemovePriority(lineNumber, todoString),
       },
       {
         id: "archive",

@@ -170,5 +170,6 @@
   "welcome.analyticsDetails": "The data helps us understand which features are used and which ones are not. See the ",
   "welcome.privacyPolicyLink": "privacy policy",
   "welcome.analyticsAllow": "Allow analytics",
-  "welcome.skipAnalytics": "Skip analytics"
+  "welcome.skipAnalytics": "Skip analytics",
+  "contextMenu.removePriority": "Remove priority"
 }
