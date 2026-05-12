@@ -51,6 +51,28 @@ const Row: React.FC<RowProps> = memo(
       if (todoObject) ipcRenderer.send("saveToClipboard", todoObject.string);
     };
 
+    const handleSetPriority = (priority: string): void => {
+      ipcRenderer.send(
+        "writeSingleTodoToFile",
+        todoObject.lineNumber,
+        todoObject.string,
+        false,
+        "priority",
+        priority,
+      );
+    };
+
+    const handleRemovePriority = (): void => {
+      ipcRenderer.send(
+        "writeSingleTodoToFile",
+        todoObject.lineNumber,
+        todoObject.string,
+        false,
+        "priority",
+        "-",
+      );
+    };
+
     const handleContextMenu = (
       event: React.MouseEvent,
       todoString: string,
@@ -62,6 +84,26 @@ const Row: React.FC<RowProps> = memo(
             id: "copy",
             label: t("copy"),
             function: handleSaveToClipboard,
+          },
+          {
+            id: "priority-a",
+            label: `${t("shared.attributeMapping.priority")} A`,
+            function: () => handleSetPriority("A"),
+          },
+          {
+            id: "priority-b",
+            label: `${t("shared.attributeMapping.priority")} B`,
+            function: () => handleSetPriority("B"),
+          },
+          {
+            id: "priority-c",
+            label: `${t("shared.attributeMapping.priority")} C`,
+            function: () => handleSetPriority("C"),
+          },
+          {
+            id: "remove-priority",
+            label: t("contextMenu.removePriority"),
+            function: handleRemovePriority,
           },
           {
             id: "delete",
